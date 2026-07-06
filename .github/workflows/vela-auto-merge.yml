@@ -71,14 +71,14 @@ jobs:
 
           # 2. ADDITIVE ONLY. The published record — bounds.json, frontier.json/
           #    .yaml, vela.lock — must be untouched, and the PR must change nothing
-          #    outside witnesses/ and .vela/. A real beat only ADDS a witness, its
-          #    targets.json entry, and the .vela events for the new finding.
+          #    outside the append-only store. A real beat only ADDS the landed
+          #    record (records/vrc_*.json), the witness, and its targets.json entry.
           changed=$(git diff --name-only "origin/$BASE...HEAD" || true)
           if echo "$changed" | grep -qxE 'bounds\.json|frontier\.(json|yaml)|vela\.lock'; then
             hold $'Not auto-merged: this PR changes the published record (bounds.json / frontier.json / vela.lock), not just an additive beat. A maintainer reviews.'
           fi
-          if echo "$changed" | grep -vE '^(witnesses/|\.vela/)' | grep -q .; then
-            hold "$(printf 'Not auto-merged: this PR changes files outside `witnesses/` and `.vela/`. A maintainer reviews.\n\nchanged:\n%s' "$(echo "$changed" | sed 's/^/  /')")"
+          if echo "$changed" | grep -vE '^(witnesses/|\.vela/|records/)' | grep -q .; then
+            hold "$(printf 'Not auto-merged: this PR changes files outside the append-only store (`witnesses/`, `.vela/`, `records/`). A maintainer reviews.\n\nchanged:\n%s' "$(echo "$changed" | sed 's/^/  /')")"
           fi
 
           # 3. THE NEW FINDINGS. New entries in the witness map, diffed against the
