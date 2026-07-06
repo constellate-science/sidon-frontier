@@ -1,0 +1,44 @@
+{
+  "schema": "vela.proposal.v0.1",
+  "id": "vpr_c0905e57492c5354",
+  "kind": "verifier.attach",
+  "target": {
+    "type": "finding",
+    "id": "vf_aab348416bfdf292"
+  },
+  "actor": {
+    "id": "agent:wblair-episteme",
+    "type": "agent"
+  },
+  "created_at": "2026-07-06T11:56:09.571901+00:00",
+  "reason": "backfill frozen verifier re-check",
+  "payload": {
+    "attachment": {
+      "adversarial_probes": [
+        {
+          "kind": "counterexample_search",
+          "result": "survived"
+        }
+      ],
+      "claim_digest": "beba4c4b528aab7d",
+      "id": "vva_44b0ba2e6e09c1f2",
+      "independent_of": [],
+      "match_to_claim": {
+        "checker_actor": "vela-verify",
+        "matches": true
+      },
+      "method_integrity": "sound",
+      "note": "frozen verifier re-check: sidon",
+      "outcome": "passed",
+      "schema": "vela.verifier_attachment.v0.1",
+      "solver_id": "vela-verify",
+      "target": "vf_aab348416bfdf292",
+      "toolchain_hash": "562f6a2590b77144",
+      "verifier_actor": "vela-verify",
+      "verifier_method": "computational_search"
+    }
+  },
+  "source_refs": [],
+  "status": "pending_review",
+  "caveats": []
+}

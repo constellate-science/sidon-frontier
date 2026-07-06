@@ -1,0 +1,88 @@
+{
+  "schema": "vela.proposal.v0.1",
+  "id": "vpr_c36efbec6a96c668",
+  "kind": "finding.add",
+  "target": {
+    "type": "finding",
+    "id": "vf_0c5bfa8a18a5714c"
+  },
+  "actor": {
+    "id": "agent:wblair-episteme",
+    "type": "agent"
+  },
+  "created_at": "2026-07-06T11:55:45.652781+00:00",
+  "reason": "Manual finding added to frontier state",
+  "payload": {
+    "finding": {
+      "assertion": {
+        "direction": null,
+        "relation": null,
+        "text": "OEIS A309370 a(6) >= 15: a Sidon set of 15 distinct binary vectors in {0,1}^6 under componentwise integer addition, all pairwise sums distinct. Frozen-verified by vela-verify (sidon kind).",
+        "type": "computational"
+      },
+      "conditions": {
+        "duration": null,
+        "text": "Record vrc_126d9fbd00fd52b1 (signed; recorded against the current head). Caveats: Admission to the log is not verification; this lower-bound claim reaches `machine_verified` by the frozen verifier, not human accept.. Artifacts: 1 hash-verified at propose."
+      },
+      "confidence": {
+        "basis": "operator-supplied frontier prior; review required",
+        "extraction_confidence": 1.0,
+        "kind": "frontier_epistemic",
+        "method": "expert_judgment",
+        "score": 0.3
+      },
+      "created": "2026-07-06T11:55:45.652772+00:00",
+      "evidence": {
+        "evidence_spans": [],
+        "method": "manual state transition",
+        "model_system": "",
+        "replicated": false,
+        "replication_count": null,
+        "type": "computational"
+      },
+      "flags": {
+        "contested": false,
+        "declining": false,
+        "gap": false,
+        "gravity_well": false,
+        "negative_space": false,
+        "retracted": false
+      },
+      "id": "vf_0c5bfa8a18a5714c",
+      "links": [],
+      "previous_version": null,
+      "provenance": {
+        "authors": [
+          {
+            "name": "agent:wblair-episteme",
+            "orcid": null
+          }
+        ],
+        "doi": null,
+        "extraction": {
+          "extracted_at": "2026-07-06T11:55:45.652771+00:00",
+          "extractor_version": "vela/0.756.0",
+          "method": "manual_curation",
+          "model": null,
+          "model_version": null
+        },
+        "review": {
+          "corrections": [],
+          "reviewed": false,
+          "reviewed_at": null,
+          "reviewer": null
+        },
+        "source_type": "model_output",
+        "title": "record:vrc_126d9fbd00fd52b1",
+        "year": null
+      },
+      "updated": null,
+      "version": 1
+    }
+  },
+  "source_refs": [],
+  "status": "pending_review",
+  "caveats": [
+    "Manual findings require evidence review before scientific use."
+  ]
+}
