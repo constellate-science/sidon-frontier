@@ -1,0 +1,25 @@
+{
+  "schema": "vela.event.v0.1",
+  "id": "vev_e2c1a62cceacb4d3",
+  "kind": "policy.auto_admitted",
+  "target": {
+    "type": "proposal",
+    "id": "vpr_fc07b71b5d2e6da1"
+  },
+  "actor": {
+    "id": "policy:exact-lane",
+    "type": "agent"
+  },
+  "timestamp": "2026-07-06T14:17:33.468886+00:00",
+  "reason": "exact-lane auto-admit: frozen predicate exact-lane.v1",
+  "before_hash": "sha256:null",
+  "after_hash": "sha256:null",
+  "payload": {
+    "attachment_ids": [],
+    "claim_digest": "7136dd2b93230702",
+    "policy_version": "exact-lane.v1",
+    "proposal_id": "vpr_fc07b71b5d2e6da1",
+    "verifier_env_hash": "vela-verify@0.757.0"
+  },
+  "caveats": []
+}

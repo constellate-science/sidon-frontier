@@ -1,0 +1,38 @@
+{
+  "id": "va_49e6efae2300df2b",
+  "kind": "dataset",
+  "name": "Frozen-verifier witness: sidon-a5-6 (sidon)",
+  "content_hash": "sha256:5035f43b87fb572bb008c1d2726771d03f39d1efdba8492c83600b7a401c6550",
+  "size_bytes": 158,
+  "media_type": "application/json",
+  "storage_mode": "local_blob",
+  "locator": ".vela/artifact-blobs/sha256/5035f43b87fb572bb008c1d2726771d03f39d1efdba8492c83600b7a401c6550",
+  "license": "CC-BY-4.0",
+  "target_findings": [
+    "vf_7ffdf3818f716551"
+  ],
+  "provenance": {
+    "source_type": "data_release",
+    "doi": null,
+    "title": "Frozen-verifier witness: sidon-a5-6 (sidon)",
+    "authors": [],
+    "year": null,
+    "license": "CC-BY-4.0",
+    "extraction": {
+      "method": "",
+      "model": null,
+      "model_version": null,
+      "extracted_at": "",
+      "extractor_version": ""
+    },
+    "review": null
+  },
+  "metadata": {
+    "verifier": "vela-verify::sidon",
+    "witness_file": "sidon-a5-6.witness.json",
+    "witness_kind": "sidon"
+  },
+  "retracted": false,
+  "access_tier": "public",
+  "created": "2026-07-06T14:17:33.402309+00:00"
+}
