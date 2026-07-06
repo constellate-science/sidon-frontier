@@ -1,22 +1,18 @@
 name: Auto-merge a gate-clean machine-verified beat
 
-# A producer's PR that adds a frozen-verified Sidon beat merges itself, with no
-# maintainer in the loop. The trust is the un-forgeable floor: this workflow
-# re-derives the exact-lane admission (the substrate re-runs vela-verify on the
-# witness and binds the claim to it) and merges ONLY when every new finding is
-# `machine_verified` AND at least one is a genuine beat of the published record.
-# Anything else is labelled for a human. It never signs; `machine_verified` is
-# distinct from human `accepted`, which stays a key-custody decision.
+# A producer's PR that adds a frozen-verified beat merges itself, with no
+# maintainer in the loop. The whole decision is one verb: `vela ci verdict`
+# re-derives the exact-lane verdict from a clean checkout — every new finding is
+# `machine_verified`, at least one genuinely beats the accepted record, and the
+# PR only touched the append-only store — and exits 0 only when the PR may
+# auto-merge. `machine_verified` is distinct from human `accepted`; this never
+# signs.
 #
-# SECURITY. This runs on `pull_request_target`, so GitHub uses THIS workflow file
-# from the base branch (a fork cannot alter what runs) and grants a write token
-# scoped to this repo. The fork's PR head is checked out as DATA ONLY: the only
-# programs that execute are the base-trusted `vela` binary, `gh`, and the inline
-# bash/python defined here. No script from the fork is ever sourced or run. Every
-# authoritative input for the merge decision (the current bounds, the set of
-# already-known findings) is read from the BASE branch via `git show`, never from
-# the fork's checkout, so a fork cannot lower a bound or rewrite the record to
-# forge a beat.
+# SECURITY. Runs on `pull_request_target`, so GitHub uses THIS base-branch
+# workflow (a fork cannot alter what runs) with a repo-scoped write token. The
+# fork head is checked out as DATA ONLY — the only programs that run are the
+# base-trusted `vela` binary and `gh`. `vela ci verdict` reads the accepted
+# record and the pinned verifier from the BASE ref, so a fork cannot forge a beat.
 on:
   pull_request_target:
     paths:
@@ -38,115 +34,31 @@ jobs:
   auto-merge:
     runs-on: ubuntu-latest
     steps:
-      # Fork PR head as data only (see SECURITY note above). fetch-depth: 0 so we
-      # can diff against, and read files from, the base branch.
       - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - uses: constellate-science/vela@main
         with:
-          # vela-version defaults to the vela_version pinned in vela.lock.
           strict: "false"
-      - name: Re-derive the exact-lane verdict + merge only a gate-clean beat
+      - name: Decide + merge
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ github.event.pull_request.number }}
           BASE: ${{ github.base_ref }}
         run: |
-          set -euo pipefail
+          set -uo pipefail
           git fetch --quiet origin "$BASE"
-
-          hold() {  # label + comment, then stop without merging
-            gh pr edit "$PR" --add-label needs-review || true
-            gh pr comment "$PR" --body "$1" || true
-            exit 0
-          }
-
-          # 1. THE FLOOR. Replay the signed event log (--strict) and re-run every
-          #    frozen verifier on every witness, on the tree that would merge. This
-          #    catches tampering of the accepted event log (signatures/replay) and
-          #    of any witness (reproduce). It does NOT re-derive frontier.json /
-          #    bounds.json / vela.lock, so those are guarded separately below.
-          vela check . --strict >/dev/null 2>&1 || hold $'Not auto-merged: the event log failed replay/signature verification (vela check --strict). A maintainer reviews.'
-          vela reproduce . >/dev/null 2>&1 || hold $'Not auto-merged: a witness failed to reproduce under the frozen verifier. A maintainer reviews.'
-
-          # 2. GUARD. A legit land rewrites the derived views (frontier.json,
-          #    proof/, vela.lock state hashes) — the hub re-derives those from the
-          #    .vela log and the Action re-derives machine_verified from scratch, so
-          #    they are caches, not trusted inputs. Only two inputs the Action DOES
-          #    trust are not re-derived by the floor, so they are pinned:
-          #      - bounds.json: the beat oracle (read from BASE below); a producer's
-          #        beat never touches it, and a merged edit would poison later beats.
-          #      - vela.lock's vela_version: the pinned verifier; a legit land churns
-          #        the state hashes but never the version, so block a downgrade.
-          #    Everything the PR changes must fall inside the append-only store plus
-          #    those derived views; anything else (bounds.json, .github/, docs, …)
-          #    holds for a human.
-          changed=$(git diff --name-only "origin/$BASE...HEAD" || true)
-          if echo "$changed" | grep -vE '^(witnesses/|\.vela/|records/|frontier\.json$|proof/|vela\.lock$)' | grep -q .; then
-            hold "$(printf 'Not auto-merged: this PR changes files outside the append-only store and its derived views (allowed: witnesses/, .vela/, records/, frontier.json, proof/, vela.lock). A maintainer reviews.\n\nchanged:\n%s' "$(echo "$changed" | grep -vE '^(witnesses/|\.vela/|records/|frontier\.json$|proof/|vela\.lock$)' | sed 's/^/  /')")"
-          fi
-          base_ver=$(git show "origin/$BASE:vela.lock" 2>/dev/null | sed -n 's/^vela_version:[[:space:]]*//p')
-          head_ver=$(sed -n 's/^vela_version:[[:space:]]*//p' vela.lock 2>/dev/null)
-          if [ -n "$base_ver" ] && [ "$base_ver" != "$head_ver" ]; then
-            hold "Not auto-merged: this PR changes the pinned verifier (vela_version $base_ver -> $head_ver). A maintainer reviews."
-          fi
-
-          # 3. THE NEW FINDINGS. New entries in the witness map, diffed against the
-          #    BASE branch (authoritative), never the fork's own targets.json.
-          base_targets=$(git show "origin/$BASE:witnesses/targets.json" 2>/dev/null || echo '{}')
-          head_targets=$(cat witnesses/targets.json 2>/dev/null || echo '{}')
-          mapfile -t NEW < <(python3 - "$base_targets" "$head_targets" <<'PY'
-          import json, sys
-          base = json.loads(sys.argv[1] or "{}")
-          head = json.loads(sys.argv[2] or "{}")
-          print("\n".join(v for k, v in head.items() if k not in base))
-          PY
-          )
-          if [ ${#NEW[@]} -eq 0 ]; then
-            hold $'Not auto-merged: no new witness->finding mapping in this PR. A maintainer reviews.'
-          fi
-
-          # The current published best, read from BASE — the number a beat must
-          # exceed, and one a fork cannot edit into its own favour.
-          git show "origin/$BASE:bounds.json" > /tmp/base-bounds.json 2>/dev/null || echo '{}' > /tmp/base-bounds.json
-
-          all_mv=true; any_beat=false; report=""
-          for vf in "${NEW[@]}"; do
-            [ -n "$vf" ] || continue
-            # 3a. Re-derive the exact-lane verdict (read-only). The gate output
-            #     carries both the machine_verified decision and the witness-derived
-            #     canonical claim (a pending proposal has no materialized assertion
-            #     to read, and the witness-derived claim is the one to trust).
-            gate=$(vela gate auto-admit . --finding "$vf" --json)
-            mv=$(jq -r '.would_auto_admit // false' <<<"$gate")
-            claim=$(jq -r '.canonical_claim // empty' <<<"$gate")
-            # 3b. A genuine beat of the base-authoritative current best?
-            beat=$(python3 - "$claim" /tmp/base-bounds.json <<'PY'
-          import json, re, sys
-          m = re.search(r'a\((\d+)\)\s*>=\s*(\d+)', sys.argv[1] or "")
-          if not m:
-              print("no"); raise SystemExit
-          n, k = int(m.group(1)), int(m.group(2))
-          try:
-              rows = json.load(open(sys.argv[2])).get("bounds", [])
-          except Exception:
-              rows = []
-          best = next((r.get("best_lower_bound") for r in rows if r.get("n") == n), None)
-          print("beat" if (best is None or k > best) else "no")
-          PY
-            )
-            report="${report}"$'\n'"  ${vf}: machine_verified=${mv}, beat=${beat}, claim='${claim}'"
-            [ "$mv" = "true" ] || all_mv=false
-            [ "$beat" = "beat" ] && any_beat=true
-          done
-          printf 'decision inputs:%s\n' "$report"
-
-          # 4. Merge only a gate-clean machine-verified beat; else hand to a human.
-          if [ "$all_mv" = true ] && [ "$any_beat" = true ]; then
+          ok=1
+          vela check . >/dev/null 2>&1 || ok=0
+          vela reproduce . >/dev/null 2>&1 || ok=0
+          vela ci verdict --frontier . --base "origin/$BASE" --json > verdict.json 2>&1 || ok=0
+          cat verdict.json
+          if [ "$ok" = 1 ]; then
             gh pr merge "$PR" --squash --auto
-            gh pr comment "$PR" --body "Auto-merged: a frozen-verified Sidon beat (machine_verified). A maintainer marks significance for \`accepted\`."
+            gh pr comment "$PR" --body "Auto-merged: a frozen-verified beat (\`machine_verified\`). A maintainer marks significance for \`accepted\`."
           else
-            hold "$(printf 'Not auto-merged: not a gate-clean, machine-verified beat.%s' "$report")"
+            gh pr edit "$PR" --add-label needs-review || true
+            reasons="$(jq -r '.reasons[]?' verdict.json 2>/dev/null | sed 's/^/- /')"
+            gh pr comment "$PR" --body "$(printf 'Not auto-merged — held for a human review.\n\n%s' "${reasons:-- the floor (check/reproduce) or the exact-lane verdict did not pass}")"
           fi
