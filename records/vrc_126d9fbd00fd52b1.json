@@ -1,0 +1,22 @@
+{
+  "against_head": "8a58f1ed851d0d6de32e07d72395369ea7d96d858bd27187568d900ed462bdd1",
+  "artifacts": [
+    {
+      "kind": "witness",
+      "locator": "/private/tmp/claude-501/-Users-williamblair-personal-vela/91cfe405-6be4-40e5-9834-6bdb26050e86/scratchpad/live-fork/mine.json",
+      "sha256": "6f3c5d88809201745c1fba91bccc0662d9413d940e2042b7d9c531ce8b6a5c16"
+    }
+  ],
+  "assertion": "OEIS A309370 a(6) >= 15: a Sidon set of 15 distinct binary vectors in {0,1}^6 under componentwise integer addition, all pairwise sums distinct. Frozen-verified by vela-verify (sidon kind).",
+  "assertion_type": "computational",
+  "caveats": [
+    "Admission to the log is not verification; this lower-bound claim reaches `machine_verified` by the frozen verifier, not human accept."
+  ],
+  "emitted_at": "2026-07-06T11:55:45.652051+00:00",
+  "emitted_by": "agent:wblair-episteme",
+  "frontier_id": "vfr_496956067dc5ad79",
+  "id": "vrc_126d9fbd00fd52b1",
+  "schema": "vela.activity-record.v0.1",
+  "signature": "8e1b8d26c02bb60dd96f8dbc76ae998da0c34496080b93913df4fa7b2a3c1448e5e1823f301c6937fc252ef695bc35c11e20d122de9676b01df9960513169b02",
+  "signer_pubkey_hex": "23bac1d0b3f8f3866fc8c8e2bc90522b0420d64e55ad35f1aa1c38437c0616ec"
+}
