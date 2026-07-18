@@ -1,0 +1,14 @@
+{
+  "_generated_by": "vela agents sync (from VELA.md) — edit VELA.md, not this file",
+  "mcpServers": {
+    "vela-local": {
+      "args": [
+        "serve",
+        ".",
+        "--profile",
+        "draft"
+      ],
+      "command": "vela"
+    }
+  }
+}

@@ -18,7 +18,7 @@
     "source_event_log_hash": "sha256:a3dd5e8de3b98d18d54ebce25d4a6577d2711fbdf3699b5a685e583f626daf8d",
     "newest_finding_at": "2026-06-16T23:28:04.115631+00:00"
   },
-  "how_to_beat": "For an n below, construct a Sidon set in the n-dim 0/1 cube with more than best_lower_bound vectors, then run frontiers/sidon-sets/submit.py. A strictly larger frozen-verified witness updates the bound with your key on the accepted state transition. Poll this file before searching so you never repeat banked work.",
+  "how_to_beat": "Run `vela next . --limit 1 --json`, claim the ranked target with `vela work`, reproduce the exact witness, and land one scoped Receipt. A verifier pass is mechanical evidence; only an active signed Permit policy or a protected human decision changes accepted state. Check tracked discoveries as well as accepted bounds before searching so you do not repeat banked work.",
   "bounds": [
     {
       "n": 7,

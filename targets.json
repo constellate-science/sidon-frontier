@@ -1,0 +1,30 @@
+{
+  "schema": "vela.target-index.v1",
+  "frontier_id": "vfr_496956067dc5ad79",
+  "as_of": {
+    "snapshot_hash": "sha256:a09958d8bdb66ddcbbd274c345c6beab2fbf409b60e2e940ae4902487d952ce4",
+    "event_log_hash": "sha256:5f85d0896688fec7b5a6517928f9e954c0136c8f345ade51011b95b42b9d6cb6",
+    "proposal_state_hash": "sha256:378798850a42f954df2572c64df196de16043dbaf765207d423ff90e8d1d2f7f"
+  },
+  "claim_boundary": {
+    "derived": true,
+    "authoritative": false,
+    "deletable": true
+  },
+  "targets": [
+    {
+      "id": "sidon:a24-improve",
+      "title": "Improve the tracked 7,192-point Sidon set in the 24-cube",
+      "why": "Accepted state records 7,179 points, and a tracked but unaccepted witness verifies 7,192; useful new evidence must exceed both without repeating the repository discovery.",
+      "state": "open",
+      "rank": 1,
+      "objective": "Produce one explicit Sidon subset of {0,1}^24 with more than 7,192 points. A bounded failure is run evidence only and cannot claim maximality.",
+      "labels": ["sidon", "a309370", "bounded-search", "non-duplicate"],
+      "packet": {
+        "path": "targets/sidon-a24-improve.json",
+        "sha256": "sha256:da2ecf8b213c3166ff258834a1b81f2a21f7c8d6074589098261fe4cf1e82df1",
+        "schema": "sidon-frontier.a24-improvement-work.v1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "event_count": 101,
+  "event_log_hash": "sha256:5f85d0896688fec7b5a6517928f9e954c0136c8f345ade51011b95b42b9d6cb6",
+  "freshness": "fresh",
+  "frontier_hash": "sha256:a09958d8bdb66ddcbbd274c345c6beab2fbf409b60e2e940ae4902487d952ce4",
+  "frontier_id": "vfr_496956067dc5ad79",
+  "materialized_at": "2026-07-06T14:17:33.468886+00:00",
+  "paths": {
+    "events_authority": ".vela/events/",
+    "events_manifest": "proof/events.manifest.jsonl",
+    "frontier": "frontier.json",
+    "lockfile": "vela.lock",
+    "replay_trace": "proof/replay.trace.jsonl"
+  },
+  "proposal_state_hash": "sha256:378798850a42f954df2572c64df196de16043dbaf765207d423ff90e8d1d2f7f",
+  "reducer": {
+    "digest": "sha256:5ed141c9e5336693a450eedec9ebe43855a3379dea5d7b654fdba4d1d33081bc",
+    "name": "vela",
+    "package": "vela@0.901.0",
+    "version": "0.901.0"
+  },
+  "schema": "vela.frontier_repo_proof.v0.1",
+  "warning": "Do not edit frontier.json directly. Use Vela's task-first receipt, signing, materialization, and proof commands."
+}

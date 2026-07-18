@@ -1,93 +1,53 @@
 # sidon-frontier
 
-A live record of lower bounds for Sidon sets in the binary cube: how many points
-you can place in `{0,1}^n` so that all pairwise sums stay distinct. The sequence
-is [OEIS A309370](https://oeis.org/A309370). The current best bound for each `n`
-lives in [`bounds.json`](bounds.json), and every one of them is backed by a
-witness a stranger can re-check from a clean clone.
+This repository records explicit lower bounds for Sidon subsets of the binary
+cube. A set is Sidon when all componentwise integer sums `a + b`, with `a <= b`,
+are distinct. The sequence is [OEIS A309370](https://oeis.org/A309370).
 
-This is the first Vela frontier where an outside contributor's verified result
-lands with no maintainer in the loop. You find a larger Sidon set, you submit its
-coordinates, and a frozen verifier re-runs your construction and merges it. No
-key of yours is trusted, and no key of the maintainer's is needed for the merge.
+Accepted state currently records `a(24) >= 7179`. The repository also contains
+a mechanically reproduced but unaccepted 7,192-point discovery. New work on the
+first producer offer must exceed 7,192; merely rediscovering the tracked file is
+not useful new evidence.
 
-## Beat a bound
+## Work on the frontier
 
-You need a witness: a JSON file with the points of a Sidon set larger than the
-current best for its `n`.
+Use the released Vela version pinned by `vela.lock`:
 
 ```bash
-# 1. Fork this repo and clone your fork.
-git clone https://github.com/<you>/sidon-frontier && cd sidon-frontier
+vela status . --json
+vela next . --limit 1 --json
+vela work sidon:a24-improve --as agent:<name> --json
 
-# 2. Install vela (the version this frontier is pinned to, from vela.lock).
-cargo install --git https://github.com/constellate-science/vela vela-cli
-
-# 3. Submit your witness. This re-verifies it, lands it under your agent key,
-#    and fires the frozen verifier to bind the claim to the construction.
-python3 submit.py mine.json
-
-# 4. Push the commits it made and open a pull request.
-git push && gh pr create --fill
+# Produce the exact artifact required by the returned packet, then:
+vela reproduce path/to/witness
+vela land --frontier . --work sidon:a24-improve \
+  --claim "A precisely scoped lower-bound claim." \
+  --type computational --replayability exact \
+  --artifact path/to/witness:sidon-witness \
+  --caveat "This is a lower bound, not a proof of maximality." \
+  --as agent:<name> --json
 ```
 
-`mine.json` is `{"kind": "sidon", "n": 12, "points": [[0,1,0,...], ...],
-"claimed_size": 134}`. See [`witness.example.json`](witness.example.json).
+`vela land` creates a Receipt and lets Vela evaluate the active signed policy.
+Without a matching Permit policy, the result remains `Deferred` and
+`pending_review`. Git publication transports the record; it is not scientific
+acceptance. Only a registered human or an exact previously signed policy can
+change accepted state.
 
-On the pull request, [CI](.github/workflows/vela-frontier.yml) re-derives the
-whole frontier from a clean checkout and re-runs the verifier on your witness. If
-your set is a genuine beat and it checks out, the
-[auto-merge workflow](.github/workflows/vela-auto-merge.yml) merges it. If it is
-valid but not a beat, or it is anything other than a computational Sidon witness,
-it waits for a human.
+The ranked target index and packet are non-authoritative, deletable projections.
+The event log under `.vela/` remains the source of accepted state.
 
-## What the merge means, and what it does not
-
-A merged beat is **`machine_verified`**: a frozen verifier re-ran the construction
-from scratch and confirmed the claim is bound to it. That is a fact about the
-witness, not a judgment about significance. It is distinct from **`accepted`**,
-which a named human reviewer signs with their own key. The auto-merge never
-signs an accept, and no model is ever in that path. Agents land, verifiers
-reproduce, humans sign.
-
-The trust is the floor, not the paperwork. The verifier runs on GitHub's clean
-runner from your fork's checkout, so:
-
-- a valid larger Sidon set merges on its own math, and
-- an inflated claim (`a(8) >= 45` behind a 30-point set) fails the verifier
-  before it can land: the construction size has to match the claim.
-
-## Verify it yourself
-
-The dashboard and `bounds.json` are materialized views. The authority is the
-signed, replayable event log under [`.vela/`](.vela/) (frontier
-`vfr_496956067dc5ad79`):
+## Verify the record
 
 ```bash
-vela check .        # replay the log, verify every signature and hash
-vela reproduce .    # re-run every frozen verifier on every stored witness
+vela check .
+vela reproduce discoveries/sweep-2026-06/witnesses/sidon-a24-improved.witness.json
 ```
 
-If both pass on your machine, you have re-derived every bound here without
-trusting anyone. The witnesses are in [`witnesses/`](witnesses/), and
-[`witnesses/targets.json`](witnesses/targets.json) maps each one to the finding
-it proves.
+Strict verification passes. Two historical artifact links target exact pending
+findings and remain explicitly classified as provisional, unauthenticated
+evidence. They do not enter accepted state; see [DEBT.md](DEBT.md).
 
-## What is inside
-
-Beyond the bounds, this frontier carries the additive-combinatorics context the
-records sit in: the curriculum findings (Erdős–Turán through the polynomial
-method), the earlier AI-attribution demonstration that started it, and the
-technique notes in [`technique-sheet.md`](technique-sheet.md). Scope and intent
-are in [`SCOPE.md`](SCOPE.md) and [`STATEMENT.md`](STATEMENT.md).
-
-Contribution details, including the proof and formalization paths, are in
-[`CONTRIBUTING.md`](CONTRIBUTING.md).
-
-## Origin
-
-This frontier began as a concrete answer to Timothy Gowers's 2026 note on wanting
-a place where AI-produced results could live only if a human certified them, or a
-proof assistant did. Vela's substrate records that distinction natively: every
-event carries `actor.type`, agent-drafted proposals stay proposals until a human
-signs, and a witness that reproduces is a fact independent of either.
+Current accepted bounds are projected in [bounds.json](bounds.json). Witnesses
+and prior search artifacts are retained under `witnesses/` and `discoveries/`.
+Scope is defined in [SCOPE.md](SCOPE.md) and [STATEMENT.md](STATEMENT.md).

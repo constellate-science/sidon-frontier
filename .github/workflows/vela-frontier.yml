@@ -1,10 +1,10 @@
 name: Verify the signed frontier
 
 # The git-native gate, via the shared action: on every change to the signed
-# frontier, constellate-science/vela re-derives it from a clean checkout and
+# frontier, the pinned Vela release re-derives it from a clean checkout and
 # proves the working tree IS the signed state (replay + signatures + hash
 # parity), then re-runs every frozen verifier on every stored witness. It NEVER
-# signs and NEVER merges — the auto-merge decision is a separate workflow.
+# signs and NEVER merges. GitHub branch protection owns the merge gate.
 on:
   push:
     branches: [main]
@@ -34,11 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: constellate-science/vela@main
+      - uses: vela-science/vela@f9badc0ad3e2a840385cfb006750209088249c27 # v0.901.0
         with:
-          # vela-version defaults to the vela_version pinned in vela.lock, so
-          # the gating binary always matches the one that materialized state.
-          strict: "false"
+          frontier: .
+          vela-version: v0.901.0
       # A stranger re-runs every frozen verifier on every stored witness from a
       # clean checkout. `vela` is on PATH from the action above. This is the
       # un-forgeable floor the exact-lane admissions rest on.
