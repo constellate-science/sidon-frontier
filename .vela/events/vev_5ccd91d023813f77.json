@@ -1,0 +1,27 @@
+{
+  "schema": "vela.event.v0.1",
+  "id": "vev_5ccd91d023813f77",
+  "kind": "attempt.claimed",
+  "target": {
+    "type": "finding",
+    "id": "sidon:a24-improve"
+  },
+  "actor": {
+    "id": "agent:codex-sidon",
+    "type": "agent"
+  },
+  "timestamp": "2026-07-19T14:27:19.967109+00:00",
+  "reason": "Recover the retained producer session after its ignored coordination record was lost; re-claim against the active exact policy before landing the bound Receipt.",
+  "before_hash": "sha256:null",
+  "after_hash": "sha256:null",
+  "payload": {
+    "claimant_actor": "agent:codex-sidon",
+    "claimant_pubkey": "88e7513e13a0def332909d38969a0c94cebde4527b19e3980e7d300f97e9d17b",
+    "lease_ttl_seconds": 0,
+    "obligation_id": "sidon:a24-improve",
+    "prior_claim_event_id": "vev_3d3fa7cb1066c3fc",
+    "release_reason": "Recover the retained producer session after its ignored coordination record was lost; re-claim against the active exact policy before landing the bound Receipt."
+  },
+  "caveats": [],
+  "signature": "v1:d5ca5052ca6f4af000b0905c25766a944a8330d6e0d84cdc7c3158ebc0bc74ca2b8ea48a36ac3545d478f738ce3a255e4cc66f23dbf190afdff9aa74a4cf5a08"
+}
