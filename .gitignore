@@ -5,6 +5,7 @@
 packets/                 # review worklist, rebuilt on demand
 activity/                # vac_ candidate stream from harvest runs
 /.vela/tasks/            # per-run lease + work-session state
+/.vela/work/             # current private work-session state
 /.vela/workspaces/
 
 # Tooling scratch
