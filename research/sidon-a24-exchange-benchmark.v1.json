@@ -1,0 +1,68 @@
+{
+  "schema": "sidon.exchange-benchmark.v1",
+  "authority": "non_authoritative_research_evidence",
+  "source_frontier": {
+    "commit": "f557bb3f63c409c725df4944391c52ae7995fcca",
+    "tree": "e5610aa6c5e1ad767e840e51a4e695dbfd2d2fdd",
+    "target": "sidon:a24-improve",
+    "packet_path": "targets/sidon-a24-improve.json",
+    "packet_sha256": "sha256:bfa12fbedb3cd6ce0faf854ed1e506bb52b739ba2b1f03207567d33ef1f43b15"
+  },
+  "input": {
+    "path": "discoveries/sweep-2026-06/witnesses/sidon-a24-improved.witness.json",
+    "sha256": "sha256:c4f41f57f7d3ad87acf2e2c2a3f536334cdab9be9a4ced66c6494f6970cd9e89",
+    "size": 7192
+  },
+  "algorithm": {
+    "path": "research/sidon-a24-exchange-search.cpp",
+    "sha256": "sha256:4362a75069a010bf1f03f22a3f6d9fb5a6d65ba1528483b2e98140cf8e5833aa",
+    "method": "Seeded random candidate sampling followed by an exact one-removal collision hitting-set test and exact two-candidate cross-collision test.",
+    "scope": "Searches only sampled 1-for-2 exchanges against the exact tracked 7192-point input; failure would not establish local or global maximality."
+  },
+  "build": {
+    "command": "clang++ -O3 -std=c++20 -Wall -Wextra -Werror research/sidon-a24-exchange-search.cpp -o /tmp/sidon_exchange_benchmark",
+    "compiler": "Apple clang 21.0.0 arm64-apple-darwin27.0.0",
+    "binary_sha256": "sha256:9c07daebd1b63ce57fa5b5bb2cf4234eea7bc98c6b3ee59aa8f74b523d2ef1bf"
+  },
+  "run": {
+    "command": "/tmp/sidon_exchange_benchmark discoveries/sweep-2026-06/witnesses/sidon-a24-improved.witness.json 1000000 20260719 artifacts/sidon-a24-improvement.witness.json",
+    "sample_count": 1000000,
+    "seed": 20260719,
+    "pair_sums_indexed": 25866028,
+    "fully_scanned_candidates": 100,
+    "single_removal_candidate_bindings": 300,
+    "candidate_pairs_tested": 1,
+    "index_ms": 478,
+    "sample_ms": 11984,
+    "total_ms": 12469,
+    "peak_resident_bytes": 825212928,
+    "machine": "Apple M3 Max, 51539607552 bytes RAM, Darwin arm64"
+  },
+  "exchange": {
+    "removed_index": 1626,
+    "removed_point_hex": "e28270",
+    "added_point_hex": [
+      "22a8cb",
+      "e6811f"
+    ]
+  },
+  "result": {
+    "status": "positive_candidate",
+    "path": "artifacts/sidon-a24-improvement.witness.json",
+    "sha256": "sha256:f3712b47633a239133b5e0491e68fffc85831b761c27402ba9de8057f09252e7",
+    "size": 7193,
+    "pair_sums": 25873221,
+    "claim": "There exists a Sidon subset of {0,1}^24 with at least 7,193 elements."
+  },
+  "verification": {
+    "capsule": "vela-verify built from Vela commit 234cc34a",
+    "capsule_sha256": "sha256:7641fdaf11a3ad0c4110ade53b7d905c1ce1dae5a16234ed0d4e8d1dc79f548c",
+    "image": "ghcr.io/vela-science/canopus-verifier@sha256:a6f354862f2a3f7d72eb99244c65fa8583c98b74e17e3d5ce6e31ef48aa16536",
+    "platform": "linux/arm64",
+    "network": "denied",
+    "root_filesystem": "read_only",
+    "exit_code": 0,
+    "message": "Sidon verified: 7193 points, 25873221 pairwise sums all distinct (size 7193 = claimed)"
+  },
+  "authority_ceiling": "A verifier pass is mechanical construction evidence. It is not scientific acceptance and changes no accepted frontier state."
+}
