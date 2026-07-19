@@ -1,0 +1,39 @@
+{
+  "schema": "vela.activity-record.v0.1",
+  "id": "vrc_782ff1b9770967f9",
+  "frontier_id": "vfr_496956067dc5ad79",
+  "against_head": "f063218142b0995179f751036108c94e7f368eb257be31e6807a36121f7a13aa",
+  "assertion": "There exists a Sidon subset of {0,1}^24 with at least 7,193 elements.",
+  "assertion_type": "computational",
+  "artifacts": [
+    {
+      "kind": "vela-witness",
+      "locator": "records/artifacts/sha256/f3712b47633a239133b5e0491e68fffc85831b761c27402ba9de8057f09252e7",
+      "sha256": "f3712b47633a239133b5e0491e68fffc85831b761c27402ba9de8057f09252e7",
+      "size_bytes": 359784,
+      "media_type": "application/octet-stream",
+      "disclosure": "public",
+      "locator_integrity": "immutable",
+      "availability": "available",
+      "note": "copied from Receipt v1 artifact 0"
+    }
+  ],
+  "caveats": [
+    "This establishes a lower bound only; it does not prove that 7,193 is maximal."
+  ],
+  "receipt_digest": "sha256:dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c",
+  "receipt_path": "records/receipts/sha256/dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c.json",
+  "operation_id": "vop_a2a7b224d8e778f75718a07952a2d246b3790c4ca0bc39c48b5e0783f5d620e3",
+  "lineage": {
+    "parents": [],
+    "derived_from": [],
+    "source_refs": [],
+    "supersedes": [],
+    "producer_run_id": null,
+    "frontier": null
+  },
+  "emitted_by": "agent:codex-sidon",
+  "emitted_at": "2026-07-19T14:27:58.998789+00:00",
+  "signature": "264e4677079a4f878836cfbe26760d49dd49117d52b6ed68198096dc3dd4d1704e2fd311681a6faf3c606bd4d8b4bbc07467c4776447728abd11c446bd5a9f09",
+  "signer_pubkey_hex": "88e7513e13a0def332909d38969a0c94cebde4527b19e3980e7d300f97e9d17b"
+}

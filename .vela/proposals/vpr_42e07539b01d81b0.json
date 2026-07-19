@@ -1,0 +1,113 @@
+{
+  "schema": "vela.proposal.v0.1",
+  "id": "vpr_42e07539b01d81b0",
+  "kind": "finding.add",
+  "target": {
+    "type": "finding",
+    "id": "vf_6aec0d6b50f2b30d"
+  },
+  "actor": {
+    "id": "agent:codex-sidon",
+    "type": "agent"
+  },
+  "created_at": "2026-07-19T14:27:58.998789+00:00",
+  "reason": "Manual finding added to frontier state",
+  "payload": {
+    "finding": {
+      "assertion": {
+        "direction": null,
+        "relation": null,
+        "text": "There exists a Sidon subset of {0,1}^24 with at least 7,193 elements.",
+        "type": "computational"
+      },
+      "conditions": {
+        "duration": null,
+        "text": "Record vrc_782ff1b9770967f9 (signed; recorded against the current head). Receipt: sha256:dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c. Caveats: This establishes a lower bound only; it does not prove that 7,193 is maximal.. Artifacts: 1 hash-verified at propose."
+      },
+      "confidence": {
+        "basis": "operator-supplied frontier prior; review required",
+        "extraction_confidence": 1.0,
+        "kind": "frontier_epistemic",
+        "method": "expert_judgment",
+        "score": 0.3
+      },
+      "created": "2026-07-19T14:27:59.000111+00:00",
+      "evidence": {
+        "evidence_spans": [
+          {
+            "artifact_kind": "vela-witness",
+            "artifact_locator": "records/artifacts/sha256/f3712b47633a239133b5e0491e68fffc85831b761c27402ba9de8057f09252e7",
+            "artifact_sha256": "f3712b47633a239133b5e0491e68fffc85831b761c27402ba9de8057f09252e7",
+            "section": "artifacts[0]",
+            "source": "records/receipts/sha256/dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c.json",
+            "text": "There exists a Sidon subset of {0,1}^24 with at least 7,193 elements."
+          }
+        ],
+        "method": "manual state transition",
+        "model_system": "",
+        "replicated": false,
+        "replication_count": null,
+        "type": "computational"
+      },
+      "flags": {
+        "contested": false,
+        "declining": false,
+        "gap": false,
+        "gravity_well": false,
+        "negative_space": false,
+        "retracted": false
+      },
+      "id": "vf_6aec0d6b50f2b30d",
+      "links": [],
+      "previous_version": null,
+      "provenance": {
+        "authors": [
+          {
+            "name": "agent:codex-sidon",
+            "orcid": null
+          }
+        ],
+        "doi": null,
+        "extraction": {
+          "extracted_at": "2026-07-19T14:27:58.998789+00:00",
+          "extractor_version": "vela/0.910.0-rc.1",
+          "method": "manual_curation",
+          "model": null,
+          "model_version": null
+        },
+        "review": {
+          "corrections": [],
+          "reviewed": false,
+          "reviewed_at": null,
+          "reviewer": null
+        },
+        "source_type": "model_output",
+        "title": "record:vrc_782ff1b9770967f9",
+        "year": null
+      },
+      "updated": null,
+      "version": 1
+    },
+    "vela_submission": {
+      "operation_id": "vop_a2a7b224d8e778f75718a07952a2d246b3790c4ca0bc39c48b5e0783f5d620e3",
+      "receipt_path": "records/receipts/sha256/dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c.json",
+      "receipt_root": "sha256:dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c",
+      "record_id": "vrc_782ff1b9770967f9",
+      "review_material_path": "records/review/sha256/dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c.json",
+      "same_claim_findings": [
+        "vf_60a837dd8c716623"
+      ],
+      "schema": "vela.submission-links.internal.v1"
+    }
+  },
+  "source_refs": [
+    "record:vrc_782ff1b9770967f9",
+    "records/receipts/sha256/dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c.json",
+    "records/review/sha256/dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c.json",
+    "sha256:dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c"
+  ],
+  "status": "pending_review",
+  "caveats": [
+    "Manual findings require evidence review before scientific use."
+  ]
+}

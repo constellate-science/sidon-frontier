@@ -1,0 +1,56 @@
+{
+  "schema": "vela.proposal-review-material.internal.v2",
+  "proposal_id": "vpr_42e07539b01d81b0",
+  "receipt_root": "sha256:dc4fc6351fea032f55c0b3b3b9f159fe434bfbbcb3099d1cc59fe68cdd6b8a5c",
+  "evaluated_at": "2026-07-19T14:27:58.998789+00:00",
+  "route": {
+    "schema": "vela.staged-review-route.internal.v2",
+    "policy_context": {
+      "claim_class": "receipt_computational",
+      "assurance_level": 2,
+      "impact_tier": 1,
+      "changed_findings": 1,
+      "downstream_dependents": 0,
+      "assertion_text_mutated": true,
+      "target_contested": false,
+      "governance_mutation": false,
+      "independence_satisfied": false,
+      "method_integrity_sound": true,
+      "credential_valid": false,
+      "has_unknown_fields": false,
+      "replayability": "exact",
+      "execution_binding": {
+        "schema": "vela.execution-binding.v1",
+        "packet_root": "sha256:bfa12fbedb3cd6ce0faf854ed1e506bb52b739ba2b1f03207567d33ef1f43b15",
+        "profile_root": "sha256:75ad68706fd74650b6d82c2820dc9aae78d20995e7d89b0045519383bbb4ed92",
+        "verifier_capsule_root": "sha256:7641fdaf11a3ad0c4110ade53b7d905c1ce1dae5a16234ed0d4e8d1dc79f548c",
+        "result_contract_root": "sha256:092c30d5309701b6e2bd61c37b6c47f6a9abfcb768a326d06ba85aabf10dc6ca"
+      }
+    },
+    "policy_decision": {
+      "outcome": "defer",
+      "matched_rule_ids": [],
+      "reasons": [
+        "search-witness-v1:credential_invalid"
+      ],
+      "evaluator": "vela-policy@0.2.0",
+      "policy_id": "vap_540ab5be1b4cb70f011d1b52ec155c5f"
+    },
+    "policy_state": "active",
+    "permit_readiness": "ready",
+    "reason_codes": [],
+    "engine_gate": {
+      "status": "blocked",
+      "new_blocking": [],
+      "new_warnings": [
+        "condition.comparator_or_baseline@vf_6aec0d6b50f2b30d",
+        "condition.endpoint@vf_6aec0d6b50f2b30d",
+        "proof.freshness@vfr_496956067dc5ad79"
+      ],
+      "forced": false,
+      "strict": true,
+      "release_blocking_failed": 0,
+      "warnings": 75
+    }
+  }
+}

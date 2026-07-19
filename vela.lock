@@ -13,16 +13,16 @@ verifiers:
   digest: sha256:cdae0c8a97726b9d2e2ab870ba31b2048ec3cd8d089c04cb2caadf48e3997535
   kinds:
   - sidon
-snapshot_hash: sha256:5c9085bc5886d86eb33fe81a83e8257c7d500d7883f3bee19b792bad0baa02bb
+snapshot_hash: sha256:fe5498193ab1079696af6de6f8a899334908a247fd78f7a25fb476b5b36b43b8
 event_log_hash: sha256:f063218142b0995179f751036108c94e7f368eb257be31e6807a36121f7a13aa
-proposal_state_hash: sha256:9b626fb5f0c611d42a248686c4ad934e539e598f25e9679b5df8c0cbde029a65
+proposal_state_hash: sha256:30370bf27f0f7e742146d6dbcdf21d3d67967496a92bc3f8f98a92fc8d6b8ff6
 sources_hash: sha256:cd786a26b7e4ad047374953d7258cb54c4741709a27ff37b63392e3b07633762
 artifacts_hash: sha256:d76f3492e6ae88f6d3b6ca749f887f8500994ca364a6cfa62a26de1ca4fea70d
 review_hash: sha256:6d6b1b84bfe7cb32ecb261b27ea3f99194e4f460bdb39ce83c92b86fd1a8759d
 proof_freshness: fresh
 proof:
   latest: proof/latest.json
-  digest: sha256:a2706127630b1057084565462061688e29fc06de623c53b977fe74b815fc4a1c
+  digest: sha256:c23c6daf9be8d989d240babe947d846e36b7e0d2b2936647b546f2f27612966b
   freshness: fresh
   events_manifest: proof/events.manifest.jsonl
   replay_trace: proof/replay.trace.jsonl
