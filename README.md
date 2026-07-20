@@ -5,9 +5,10 @@ cube. A set is Sidon when all componentwise integer sums `a + b`, with `a <= b`,
 are distinct. The sequence is [OEIS A309370](https://oeis.org/A309370).
 
 Accepted state currently records `a(24) >= 7179`. The repository also contains
-a mechanically verified 7,193-point witness that remains pending review. New
-work on the first producer offer must reach at least 7,194; merely rediscovering
-the pending witness is not useful new evidence.
+a mechanically verified 7,193-point witness and a GPT-5.6-produced 7,194-point
+witness, both pending review. The latter improves the earlier pending witness
+by one point; it does not establish maximality, and Git publication is not
+scientific acceptance.
 
 ## Work on the frontier
 
@@ -44,11 +45,17 @@ The event log under `.vela/` remains the source of accepted state.
 ```bash
 vela check .
 vela reproduce artifacts/sidon-a24-improvement.witness.json
+node verification/verify-sidon-a24-7194.mjs \
+  artifacts/sidon-a24-gpt56-7194.witness.json
 ```
 
-Strict verification passes. Two historical artifact links target exact pending
-findings and remain explicitly classified as provisional, unauthenticated
-evidence. They do not enter accepted state; see [DEBT.md](DEBT.md).
+Strict verification passes. The [independent Build Week verification](verification/README.md)
+uses a separate JavaScript/base-3 implementation to check the 7,194-point
+witness and reject a deterministic collision injection. It is auxiliary
+evidence, not a registered Vela verifier attachment or an acceptance decision.
+Two historical artifact links target exact pending findings and remain
+explicitly classified as provisional, unauthenticated evidence. They do not
+enter accepted state; see [DEBT.md](DEBT.md).
 
 Current accepted bounds are projected in [bounds.json](bounds.json). Witnesses
 and prior search artifacts are retained under `witnesses/` and `discoveries/`.

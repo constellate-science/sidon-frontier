@@ -1,0 +1,51 @@
+{
+  "schema": "sidon.independent-verification.v1",
+  "claim": "The reconstructed witness contains 7,194 distinct points in {0,1}^24 and has unique unordered componentwise pair sums.",
+  "subject": {
+    "path": "artifacts/sidon-a24-gpt56-7194.witness.json",
+    "sha256": "sha256:878b05e01dbc4a785e5a671f977509f0bb338dfcb58ac53bf03d47bf6465f01e",
+    "dimension": 24,
+    "point_count": 7194
+  },
+  "verifier": {
+    "implementation": "node-base3-float64-sort-v1",
+    "source_path": "verification/verify-sidon-a24-7194.mjs",
+    "source_sha256": "sha256:ddbef08b366138005618c937d732f95361488db22104d86819f5d212b89bf254",
+    "method": "Encode each binary point as an exact base-3 integer, sort every unordered pair-code sum, and reject adjacent duplicates.",
+    "independence_note": "This JavaScript implementation is separate from the frozen Rust vela-verify capsule used by Canopus."
+  },
+  "result": {
+    "outcome": "pass",
+    "unordered_componentwise_sums_checked": 25880415
+  },
+  "adversarial_probe": {
+    "kind": "collision_injection",
+    "mutation": {
+      "left_index": 4023,
+      "right_index": 3324,
+      "partner_index": 2379,
+      "replace_index": 7193,
+      "replacement_hex": "61e8d7",
+      "replaced_hex": "891624"
+    },
+    "collision_identity": {
+      "first_pair": [
+        4023,
+        3324
+      ],
+      "second_pair": [
+        2379,
+        7193
+      ],
+      "exact_base3_sum_code": 46746262201
+    },
+    "outcome": "rejected",
+    "reason": "pairwise-sum-collision"
+  },
+  "authority": {
+    "kind": "non_authoritative_auxiliary_evidence",
+    "vela_state_changed": false,
+    "review_attachment_registered": false,
+    "note": "This report strengthens reproducibility but is not a Vela verifier attachment or a human acceptance decision."
+  }
+}
