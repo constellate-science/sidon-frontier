@@ -35,6 +35,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: vela-science/vela@273a82db549673ae336c9fa3374393e7ea19be04 # v0.910.0
+        env:
+          GH_TOKEN: ${{ github.token }}
         with:
           frontier: .
           vela-version: v0.910.0
