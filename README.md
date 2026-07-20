@@ -5,9 +5,9 @@ cube. A set is Sidon when all componentwise integer sums `a + b`, with `a <= b`,
 are distinct. The sequence is [OEIS A309370](https://oeis.org/A309370).
 
 Accepted state currently records `a(24) >= 7179`. The repository also contains
-a mechanically reproduced but unaccepted 7,192-point discovery. New work on the
-first producer offer must exceed 7,192; merely rediscovering the tracked file is
-not useful new evidence.
+a mechanically verified 7,193-point witness that remains pending review. New
+work on the first producer offer must reach at least 7,194; merely rediscovering
+the pending witness is not useful new evidence.
 
 ## Work on the frontier
 
@@ -20,10 +20,10 @@ vela work sidon:a24-improve --as agent:<name> --json
 
 # Produce the exact artifact required by the returned packet, then:
 vela-verify --claim \
-  "There exists a Sidon subset of {0,1}^24 with at least 7,193 elements." \
+  "There exists a Sidon subset of {0,1}^24 with at least 7,194 elements." \
   path/to/witness.json
 vela land --frontier . --work sidon:a24-improve \
-  --claim "There exists a Sidon subset of {0,1}^24 with at least 7,193 elements." \
+  --claim "There exists a Sidon subset of {0,1}^24 with at least 7,194 elements." \
   --type computational --replayability exact \
   --artifact path/to/witness.json:vela-witness \
   --caveat "This is a lower bound, not a proof of maximality." \
@@ -43,7 +43,7 @@ The event log under `.vela/` remains the source of accepted state.
 
 ```bash
 vela check .
-vela reproduce discoveries/sweep-2026-06/witnesses/sidon-a24-improved.witness.json
+vela reproduce artifacts/sidon-a24-improvement.witness.json
 ```
 
 Strict verification passes. Two historical artifact links target exact pending

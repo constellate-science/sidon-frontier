@@ -14,15 +14,20 @@
   "targets": [
     {
       "id": "sidon:a24-improve",
-      "title": "Improve the tracked 7,192-point Sidon set in the 24-cube",
-      "why": "Accepted state records 7,179 points, and a tracked but unaccepted witness verifies 7,192; useful new evidence must exceed both without repeating the repository discovery.",
+      "title": "Improve the pending 7,193-point Sidon set in the 24-cube",
+      "why": "Accepted state records 7,179 points, while a mechanically verified 7,193-point witness remains pending review; useful new evidence must reach at least 7,194 without repeating the existing exchange.",
       "state": "open",
       "rank": 1,
-      "objective": "Produce one explicit Sidon subset of {0,1}^24 with more than 7,192 points. A bounded failure is run evidence only and cannot claim maximality.",
-      "labels": ["sidon", "a309370", "bounded-search", "non-duplicate"],
+      "objective": "Produce one explicit Sidon subset of {0,1}^24 with more than 7,193 points. A bounded failure is run evidence only and cannot claim maximality.",
+      "labels": [
+        "sidon",
+        "a309370",
+        "bounded-search",
+        "non-duplicate"
+      ],
       "packet": {
         "path": "targets/sidon-a24-improve.json",
-        "sha256": "sha256:bfa12fbedb3cd6ce0faf854ed1e506bb52b739ba2b1f03207567d33ef1f43b15",
+        "sha256": "sha256:09977a08357cbe240c5a7f5c3ea8e5c7055d6b5d71bcfb5f947b49accee1a3a8",
         "schema": "sidon-frontier.a24-improvement-work.v1"
       }
     }
